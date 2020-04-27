@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function forms_gdpr_menu()
+{
+	$items['gdpr/export/%'] = array(
+		'title' => 'Export',
+		'page callback' => 'forms_gdpr_export',
+		'access callback' => true,
+		'menu_name' => 'main-menu',
+		'file' => 'forms_gdpr.inc',
+		'page arguments' => array(2)
+	);
+	return $items;
+}
