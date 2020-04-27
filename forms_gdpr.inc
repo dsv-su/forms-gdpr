@@ -140,25 +140,6 @@ function delTree($dir)
 	return rmdir($dir);
 }
 
-function filterpn($s)
-{
-	global $pn;
-	var_dump($pn);
-	if ($pn = 11) {
-		str_replace('-', '', $s);
-		return str_replace('-', '', $s) == $pn;
-	}
-}
-
-function join_list($l, $attr)
-{
-	$string = '';
-	foreach ($l as $i) {
-		$string .= $i[$attr] . ', ';
-	}
-	return substr($string, 0, -2);
-}
-
 function export_webform($value, $field, &$files)
 {
 	switch ($field['type']) {
@@ -182,51 +163,5 @@ function export_webform($value, $field, &$files)
 				return $value[0];
 			}
 			break;
-	}
-}
-
-function export_field_data($f, $name, &$files)
-{
-	if (is_array($f)) {
-		$f = $f['und'];
-		switch ($name) {
-			case 'field_courses':
-			case 'field_period':
-			case 'field_control':
-			case 'field_control_out':
-				return join_list($f, 'value');
-				break;
-
-			case 'field_email_':
-			case 'field_partner_email':
-				return $f[0]['email'];
-				break;
-
-			case 'field_universitytax':
-			case 'field_periodtax':
-				$term = taxonomy_term_load($f[0]['tid']);
-				return $term->name;
-				break;
-
-			case 'field_insurance_student_out_vali':
-				return $f[0]['value'] . ' - ' . $f[0]['value2'] . ' (' . $f[0]['timezone'] . ')';
-				break;
-
-			case 'field_files':
-			case 'field_file':
-			case 'field_foto':
-				foreach ($f as $file) {
-					$url = file_create_url($file['uri']);
-					$files[] = $url;
-				}
-				return join_list($f, 'filename');
-				break;
-
-			default:
-				if ($f[0]['value']) {
-					return $f[0]['value'];
-				}
-				break;
-		}
 	}
 }
