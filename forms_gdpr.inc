@@ -35,9 +35,9 @@ function forms_gdpr_export($string)
 
 	// Check auth.
 	if ($headers['http_code'] !== 200 || !in_array('urn:mace:swami.se:gmai:dsv-user:gdpr', json_decode($contents)->entitlements)) {
-		 Throw unauthorized code.
-			http_response_code(401);
-			die();
+		//Throw unauthorized code.
+		http_response_code(401);
+		die();
 	}
 
 	$path = DRUPAL_ROOT . '/sites/default/files/tmp/';
